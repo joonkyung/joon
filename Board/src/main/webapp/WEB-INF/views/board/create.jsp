@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>타이틀 변경</title>
 <meta name="viewport" content="width=divice-width,initial-scale=1">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
