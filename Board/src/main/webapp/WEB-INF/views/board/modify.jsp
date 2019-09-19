@@ -24,6 +24,8 @@
 			<div class="jumbotron">
 		<h1>수정</h1>
 		<form>
+		<input type="hidden" name="curPage" value="${to.curPage}">
+		<input type="hidden" name="perPage" value="${to.perPage}">
 				<div class="form-gruop">
 					<label for="title">글번호</label>
 					<input id="bno" name="bno" class="form-control" value="${vo.bno}" readonly="readonly">

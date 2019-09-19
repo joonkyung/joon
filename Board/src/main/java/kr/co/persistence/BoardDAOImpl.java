@@ -57,7 +57,7 @@ public class BoardDAOImpl implements BoardDAO{
 		return session.selectOne(NS+".getAmount");
 	}
 	@Override
-	public List<BoardVO> list(PageTO to) {
+	public List<BoardVO> list(PageTO<BoardVO> to) {
 		return session.selectList(NS+".list", to);
 	
 	}

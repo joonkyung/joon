@@ -39,4 +39,26 @@
 		where rnum between #{startNum} and #{endNum}
 		]]>
 	</select>
+	<sql id="search">
+		<if test="searchType == 'writer'.toString()">
+			where lower(writer) like '%' ||lower(#{keyword})||'%'
+		</if>
+		<if test="searchType == 'title'.toString()">
+			where lower(title) like '%' ||lower(#{keyword})||'%'
+		</if>
+		<if test="searchType == 'content'.toString()">
+			where lower(content) like '%' ||lower(#{keyword})||'%'
+		</if>
+	</sql>
+	<select id="searchlist" resultType="kr.co.domain.BoardVO">
+		<![CDATA[ 
+		select * from
+		(select rownum rnum, bno, title, writer, updatedate, viewcnt from
+		(select * from tbl_board]]> <include refid="search"></include> <![CDATA[ order by bno desc))
+		where rnum between #{startNum} and #{endNum}
+		]]>
+	</select>
+	<select id="searchAmount" resultType="Integer">
+		<![CDATA[select count(bno) from tbl_board]]> <include refid="search"></include>
+	</select>
 </mapper>
