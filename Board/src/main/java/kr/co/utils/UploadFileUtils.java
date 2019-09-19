@@ -18,6 +18,7 @@ public class UploadFileUtils {
 		File target = new File(uploadPath+datePath,savedName);
 		FileCopyUtils.copy(x.getBytes(), target);
 		
+		
 		String bp = datePath+File.separator+savedName;
 		String ap = bp.replace(File.separatorChar, '/');
 		return ap;
