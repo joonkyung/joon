@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,17 @@
 </head>
 <body>
 	<c:forEach items="${savedNameList}" var="savedName">
-	<img alt="업로드된 파일 중 하나" src="displayfile100?filename=${savedName}" width="30%" height="30%">
-	</c:forEach>
+      <c:if test="${not empty savedName}">
+      	<c:choose>
+      		<c:when test="${fn:endsWith(savedName,'.jpg')|| fn:endsWith(savedName,'.jpeg')|| fn:endsWith(savedName,'.png') }">
+      		  <img alt="업로드된 파일 중 하나" src="displayfile?filename=${savedName}">
+      		</c:when>
+      		<c:otherwise>
+      		 <img alt="dda" src="/resources/test2.PNG">
+      		</c:otherwise>
+      	</c:choose>
+        </c:if>
+   </c:forEach>
+   
 </body>
 </html>

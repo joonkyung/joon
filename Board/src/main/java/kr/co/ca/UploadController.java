@@ -1,6 +1,5 @@
 package kr.co.ca;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,53 +22,80 @@ import kr.co.utils.UploadFileUtils;
 
 @Controller
 public class UploadController {
-	@Resource(name="uploadPath")
-	private String uploadPath;
 
-	@RequestMapping("/displayfile100")
-	@ResponseBody
-	public ResponseEntity<byte[]> displayfile100(String filename){
-		ResponseEntity<byte[]> entity = null;
-		
-		InputStream in = null;
-		try {
-			in = new FileInputStream(uploadPath+filename);
-			HttpHeaders headers = new HttpHeaders();
-			
-			headers.setContentType(MediaType.IMAGE_JPEG);
-			
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		}finally {
-			try {
-				if(in != null) {in.close();}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return entity;
-	}
+   @Resource(name = "uploadPath")
+   private String uploadPath;
+
+   @RequestMapping(value = "/uploadajax" ,method = RequestMethod.POST ,produces = "text/plain; charset=UTF-8")
+   public ResponseEntity<String> uploadAjax(MultipartHttpServletRequest request) throws Exception {
+	  MultipartFile file = request.getFile("file");
 	
-	
-	@RequestMapping("/uploadform")
-	public void uploadform() {
-		
-	}
-	@RequestMapping(value = "/uploadform" , method = RequestMethod.POST)
-	public String uploadform(MultipartHttpServletRequest request, Model model) throws Exception{
-		String id = request.getParameter("id");
-		System.out.println(id);
-		
-		List<MultipartFile> list = request.getFiles("file");
-		List<String> savedNameList = new ArrayList<String>();
-		for(MultipartFile x : list) {
-			String savedName  =UploadFileUtils.uploadFile(uploadPath, x);
-			savedNameList.add(savedName);
-		}
-		model.addAttribute("savedNameList", savedNameList);
-		return "/showupload";
-	}
-	
+	         String savedName = UploadFileUtils.uploadFile(uploadPath, file);
+	       
+	     return new ResponseEntity<String>(savedName, HttpStatus.OK);
+   }
+   //드래그 이미지 가져오기
+   @RequestMapping(value = "/uploadajax" ,method = RequestMethod.GET )
+   public void uploadAjax() {
+	   
+   }
+   
+   
+   @RequestMapping("/displayfile")
+   @ResponseBody
+   public ResponseEntity<byte[]> displayfile(String filename) {
+      
+      return UploadFileUtils.displayfile(uploadPath, filename);
+      
+   }
+
+   @RequestMapping("/displayfile100")
+   @ResponseBody
+   public ResponseEntity<byte[]> displayfile100(String filename) {
+      System.out.println(filename + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      ResponseEntity<byte[]> entity = null;
+
+      InputStream in = null;
+
+      try {
+         in = new FileInputStream(uploadPath + filename);
+         HttpHeaders headers = new HttpHeaders();
+         headers.setContentType(MediaType.IMAGE_JPEG);
+
+         entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
+      } catch (Exception e) {
+         e.printStackTrace();
+         entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+      } finally {
+         try {
+            if (in != null)
+               in.close();
+         } catch (Exception e2) {
+            e2.printStackTrace();
+         }
+      }
+
+      return entity;
+   }
+
+   @RequestMapping(value = "/uploadform", method = RequestMethod.POST)
+   public String uploadform(MultipartHttpServletRequest request, Model model) throws Exception {
+
+      List<MultipartFile> list = request.getFiles("file");
+      List<String> savedNameList = new ArrayList<String>();
+
+      for (MultipartFile x : list) {
+         String savedName = UploadFileUtils.uploadFile(uploadPath, x);
+         savedNameList.add(savedName);
+      }
+
+      model.addAttribute("savedNameList", savedNameList);
+
+      return "showupload";
+   }
+
+   @RequestMapping("/uploadform")
+   public void uploadform() {
+
+   }
 }

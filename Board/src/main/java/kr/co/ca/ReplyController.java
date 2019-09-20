@@ -20,7 +20,7 @@ import kr.co.service.ReplyService;
 @RestController
 @RequestMapping("/replies")
 public class ReplyController {
-
+	// ResponseEntity를 사용하면 결과를 조작할 수 있다
 	@Inject
 	private ReplyService rService;
 	//페이징 목록
