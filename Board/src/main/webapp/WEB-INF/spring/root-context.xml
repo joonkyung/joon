@@ -15,6 +15,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	 <!-- Connection 쪽에서 Transaction을 위해 Autocomiit을 관리하므로 dataSource를 추가해준다. -->
 	<bean id = "transactionManager" class ="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -41,4 +45,5 @@
 	
 	<context:component-scan base-package="kr.co.persistence"></context:component-scan>
 	<context:component-scan base-package="kr.co.service"></context:component-scan>
+	<context:component-scan base-package="kr.co.aop"></context:component-scan>
 </beans>

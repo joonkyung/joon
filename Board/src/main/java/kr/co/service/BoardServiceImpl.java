@@ -54,13 +54,19 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public PageTO list(PageTO to) {
+	public PageTO<BoardVO> list(PageTO<BoardVO> to) {
 		int amount = bdao.getAmount();
-		
+		System.out.println("2>>>>>>>>>>>>>>");
 		to.setAmount(amount);
 		List<BoardVO> list = bdao.list(to);
 		to.setList(list);
 		return to;
+	}
+
+	@Override
+	public int amount() {
+		// TODO Auto-generated method stub
+		return bdao.getAmount();
 	}
 
 	

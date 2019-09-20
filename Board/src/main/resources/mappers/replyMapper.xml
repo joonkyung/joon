@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.mapper.reply">
+	<insert id="insert">
+		insert into tbl_reply (rno ,bno , replytext , replyyer) values (seq_reply.nextval, #{bno},#{replytext}, #{replyyer})
+		<selectKey keyProperty="rno" resultType="Integer" order="AFTER">
+		select seq_reply.currval from dual
+		</selectKey>
+	</insert>
+	
+	<select id="list" resultType="kr.co.domain.ReplyVO">
+		select * from tbl_reply where bno = #{bno} order by rno asc
+	</select>
+	<update id="update">
+		update tbl_reply set replytext = #{replytext} where rno = #{rno}
+	</update>
+	<delete id="delete">
+		delete from tbl_reply where rno = #{rno}
+	</delete>
+	<select id="getAmount" resultType="Integer">
+		select count(*) from tbl_reply where bno = #{bno}
+	</select>
+	
+</mapper>

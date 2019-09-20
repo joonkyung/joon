@@ -23,7 +23,7 @@ public interface BoardDAO {
 
 		public int getAmount();
 
-		public List<BoardVO> list(PageTO to);
+		public List<BoardVO> list(PageTO<BoardVO> to);
 
 
 }

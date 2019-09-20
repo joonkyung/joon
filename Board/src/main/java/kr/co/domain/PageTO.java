@@ -2,7 +2,7 @@ package kr.co.domain;
 
 import java.util.List;
 
-public class PageTO {
+public class PageTO<T> {
 	
 	private int curPage;
 	private int perPage;
@@ -10,18 +10,19 @@ public class PageTO {
 	private int amount;
 	private int startNum;
 	private int endNum;
-	private List<BoardVO> list;
+	private List<T> list;
 	private int perLine = 10;
 	private int bpn;
 	private int spn ;
 	
+	
 	public PageTO() {
 		curPage =1;
-		perPage =10;
+		perPage =5;
 	}
 
 	public PageTO(int curPage) {
-		
+		perPage =5;
 		this.curPage = curPage;
 	}
 	
@@ -87,11 +88,11 @@ public class PageTO {
 		this.endNum = endNum;
 	}
 
-	public List<BoardVO> getList() {
+	public List<T> getList() {
 		return list;
 	}
 
-	public void setList(List<BoardVO> list) {
+	public void setList(List<T> list) {
 		this.list = list;
 	}
 
