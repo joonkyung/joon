@@ -34,7 +34,7 @@
 				event.preventDefault();
 					
 				var arr = event.originalEvent.dataTransfer.files;
-				
+				//for문을 이용해서 다중 업로드 단일업로드가 가능하다
 				for(var i = 0; i<arr.length; i++){
 					var file = arr[i];
 				
